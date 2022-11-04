@@ -64,7 +64,19 @@ class MyHomePage extends StatelessWidget {
   const MyHomePage({super.key});
 
   Widget _dialogBuilder(BuildContext context, Kitten kitten) {
-    return SimpleDialog(children: [Container(width: 80.0, height: 80.0)]);
+    return SimpleDialog(contentPadding: EdgeInsets.zero, children: [
+      Image.network(kitten.imageUrl, fit: BoxFit.fill),
+      Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Text(kitten.name),
+              Text('${kitten.age} months old'),
+              Text(kitten.description),
+            ],
+          ))
+    ]);
   }
 
   Widget _listItemBuilder(BuildContext context, int index) {
