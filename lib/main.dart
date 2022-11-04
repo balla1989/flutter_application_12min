@@ -63,13 +63,22 @@ final List<Kitten> kittens = <Kitten>[
 class MyHomePage extends StatelessWidget {
   const MyHomePage({super.key});
 
+  Widget _dialogBuilder(BuildContext context, Kitten kitten) {
+    return SimpleDialog(children: [Container(width: 80.0, height: 80.0)]);
+  }
+
   Widget _listItemBuilder(BuildContext context, int index) {
-    return Container(
-      padding: const EdgeInsets.only(left: 16.0),
-      alignment: Alignment.centerLeft,
-      child: Text(
-        kittens[index].name,
-        style: Theme.of(context).textTheme.headlineSmall,
+    return GestureDetector(
+      onTap: () => showDialog(
+          context: context,
+          builder: (context) => _dialogBuilder(context, kittens[index])),
+      child: Container(
+        padding: const EdgeInsets.only(left: 16.0),
+        alignment: Alignment.centerLeft,
+        child: Text(
+          kittens[index].name,
+          style: Theme.of(context).textTheme.headlineSmall,
+        ),
       ),
     );
   }
