@@ -64,6 +64,9 @@ class MyHomePage extends StatelessWidget {
   const MyHomePage({super.key});
 
   Widget _dialogBuilder(BuildContext context, Kitten kitten) {
+// Caching a local theme to apply for cat texts
+    ThemeData localTheme = Theme.of(context);
+
     return SimpleDialog(contentPadding: EdgeInsets.zero, children: [
       Image.network(kitten.imageUrl, fit: BoxFit.fill),
       Padding(
@@ -71,9 +74,33 @@ class MyHomePage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Text(kitten.name),
-              Text('${kitten.age} months old'),
+              Text(
+                kitten.name,
+                style: localTheme.textTheme.displaySmall,
+              ),
+              Text(
+                '${kitten.age} months old',
+                style: localTheme.textTheme.subtitle1,
+              ),
+              const SizedBox(height: 16.0),
               Text(kitten.description),
+              const SizedBox(height: 16.0),
+              // Icon(
+              //   Icons.circle,
+              //   color: Colors.purple,
+              //   size: 50,
+              // ),
+              Wrap(
+                children: [
+                  TextButton(
+                      onPressed: () {
+                        // Back button function.
+                        Navigator.of(context).pop();
+                      },
+                      child: const Text("Back")),
+                  ElevatedButton(onPressed: () {}, child: const Text("Adopt")),
+                ],
+              )
             ],
           ))
     ]);
